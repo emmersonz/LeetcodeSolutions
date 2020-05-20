@@ -9,8 +9,15 @@ namespace LeetcodeSolutions
         {
             string a = "absddlghfefd";
             Console.WriteLine($"Length of longest substring: {LengthOfLongestSubstring(a)}");
+            var ll = new SinglyLinkedListNode(1) { next = new SinglyLinkedListNode(2) { next = new SinglyLinkedListNode(7) } };
+            //var res = deleteNode(ll, 2);
+            //SinglyLinkedListNode linkedList = ll;
+            //while (res != null)
+            //{
+            //    Console.WriteLine(linkedList.data);
+            //    linkedList = linkedList.next;
+            //}
         }
-
         public static int LengthOfLongestSubstring(string s)
         {
             var seen = new List<char>();
