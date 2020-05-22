@@ -1,4 +1,8 @@
-﻿namespace LeetcodeSolutions
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace LeetcodeSolutions
 {
     public static class Utils
     {
@@ -87,7 +91,7 @@
             arr[right] = atLeft;
         }
 
-        public string LongestPalindrome(string s)
+        public static string LongestPalindrome(string s)
         {
             if (string.IsNullOrEmpty(s))
                 return string.Empty;
@@ -122,6 +126,41 @@
             return R - L - 1;
         }
 
+        public static int MaxAncestorDiff(TreeNode root)
+        {
+            return FindMax(root, new List<int>());
+
+        }
+
+        public static int FindMax(TreeNode node, List<int> ancestors)
+        {
+            if (node == null)
+                return ancestors.Max() - ancestors.Min();
+            ancestors.Add(node.val);
+            var leftList = ancestors.Select(item => item).ToList();
+            var rightList = ancestors.Select(item => item).ToList();
+
+            int leftMaxDiff = FindMax(node.left, leftList);
+            int rightMaxDiff = FindMax(node.right, rightList);
+            return Math.Max(leftMaxDiff, rightMaxDiff);
+        }
+
+        static bool CompareLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
+            while (head1 != null || head2 != null)
+            {
+                if (head1 == null && head2 != null)
+                    return false;
+                if (head1 != null && head2 == null)
+                    return false;
+                if (head1.data != head2.data)
+                    return false;
+                head1 = head1.next;
+                head2 = head2.next;
+            }
+            return true;
+        }
+
     }
 
     public class SinglyLinkedListNode
@@ -132,6 +171,19 @@
         public SinglyLinkedListNode(int _data)
         {
             data = _data;
+        }
+    }
+
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+        {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
 }   

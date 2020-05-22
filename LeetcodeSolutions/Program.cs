@@ -17,6 +17,15 @@ namespace LeetcodeSolutions
             //    Console.WriteLine(linkedList.data);
             //    linkedList = linkedList.next;
             //}
+            var A = new int[][] { new int[] { 0, 2 }};
+            var B = new int[][] { new int[] { 1, 5 }, new int[] { 8, 12 }, new int[] { 15, 24 }, new int[] { 25, 26 } };
+            var result = Solution.IntervalIntersection(A, B);
+            foreach (var arr in result)
+            {
+                Console.WriteLine($"[{arr[0]}, {arr[1]}]");
+            }
+
+            Console.ReadKey();
         }
         public static int LengthOfLongestSubstring(string s)
         {
