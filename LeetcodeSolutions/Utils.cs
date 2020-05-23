@@ -145,6 +145,21 @@ namespace LeetcodeSolutions
             return Math.Max(leftMaxDiff, rightMaxDiff);
         }
 
+        static SinglyLinkedListNode reverse(SinglyLinkedListNode head)
+        {
+            SinglyLinkedListNode prev = null;
+            var current = head;
+            SinglyLinkedListNode nextNode = null;
+            while (current != null)
+            {
+                nextNode = current.next;
+                current.next = prev;
+                prev = current;
+                current = nextNode;
+            }
+            return prev;
+        }
+
         static bool CompareLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
         {
             while (head1 != null || head2 != null)
@@ -159,6 +174,68 @@ namespace LeetcodeSolutions
                 head2 = head2.next;
             }
             return true;
+        }
+
+        static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
+            if (head1 == null)
+                return head2;
+            if (head2 == null)
+                return head1;
+            SinglyLinkedListNode result = null;
+            SinglyLinkedListNode mlt = null;
+            SinglyLinkedListNode olt = null;
+            if (head1.data <= head2.data)
+            {
+                result = head1;
+                mlt = head1;
+                olt = head2;
+            }
+            else
+            {
+                result = head2;
+                mlt = head2;
+                olt = head1;
+
+            }
+
+            while (olt != null)
+            {
+                if (mlt.next == null || mlt.next.data > olt.data)
+                {
+                    var temp1 = mlt.next;
+                    var temp2 = olt.next;
+                    mlt.next = olt;
+                    olt.next = temp1;
+                    olt = temp2;
+                }
+                else
+                {
+                    mlt = mlt.next;
+                }
+            }
+            return result;
+
+
+        }
+
+        static bool hasCycle(SinglyLinkedListNode head)
+        {
+            if (head == null)
+                return false;
+            if (head.next == null)
+                return false;
+            List<SinglyLinkedListNode> lst = new List<SinglyLinkedListNode>();
+            while (head != null)
+            {
+                if (lst.Contains(head))
+                {
+                    return true;
+                }
+                lst.Add(head);
+                head = head.next;
+            }
+            return false;
         }
 
     }
